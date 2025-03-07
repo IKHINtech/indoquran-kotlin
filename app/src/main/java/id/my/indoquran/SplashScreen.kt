@@ -9,10 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun CustomSplashScreen(modifier: Modifier = Modifier){
-    Box(modifier = modifier.fillMaxSize(),
-contentAlignment = Alignment.Center,
-        ){
+fun CustomSplashScreen(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
         Text("Splash Screen")
     }
 }
@@ -20,6 +21,6 @@ contentAlignment = Alignment.Center,
 
 @Preview(showBackground = true)
 @Composable
-fun CustomSplashScreenPreview(){
+fun CustomSplashScreenPreview() {
     CustomSplashScreen()
 }
