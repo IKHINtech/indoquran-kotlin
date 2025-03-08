@@ -31,10 +31,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.delay
 
 
 @Composable
-fun CustomSplashScreen(modifier: Modifier = Modifier) {
+fun CustomSplashScreen(navController: NavController) {
     var targetSizeOuter by remember { mutableStateOf(180.dp) } // Ukuran awal kecil
     var targetSizeMiddle by remember { mutableStateOf(160.dp) }
 
@@ -42,6 +45,11 @@ fun CustomSplashScreen(modifier: Modifier = Modifier) {
     LaunchedEffect(Unit) {
         targetSizeOuter = 210.dp
         targetSizeMiddle = 190.dp
+
+        delay(2000) // Tunggu 2 detik sebelum pindah
+        navController.navigate("main_screen") {
+            popUpTo("splash_screen") { inclusive = true } // Hapus SplashScreen dari backstack
+        }
     }
 
     val animatedSizeOuter by animateDpAsState(
@@ -57,7 +65,7 @@ fun CustomSplashScreen(modifier: Modifier = Modifier) {
     )
 
     Box(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.primary),
         contentAlignment = Alignment.Center,
@@ -129,7 +137,7 @@ fun CustomSplashScreen(modifier: Modifier = Modifier) {
 @Composable
 fun CustomSplashScreenPreview() {
     IndoQuranTheme {
-
-        CustomSplashScreen()
+        val navController = rememberNavController()
+        CustomSplashScreen(navController)
     }
 }
