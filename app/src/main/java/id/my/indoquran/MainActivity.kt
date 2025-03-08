@@ -16,10 +16,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             IndoQuranTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CustomSplashScreen(modifier = Modifier.padding(innerPadding) )
-                }
+                MainScreen()
             }
         }
+
     }
 }
