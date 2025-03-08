@@ -1,19 +1,12 @@
 package id.my.indoquran
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,17 +23,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import id.my.indoquran.ui.theme.IndoQuranTheme
-import androidx.compose.material.icons.extended.*
-import androidx.compose.material.icons.filled.Book
-import androidx.compose.material.icons.filled.CollectionsBookmark
-import androidx.compose.material.icons.filled.ImportContacts
-import androidx.compose.material.icons.filled.MenuBook
 
 
 enum class IndoQuranScreen() {
@@ -52,8 +39,8 @@ enum class IndoQuranScreen() {
 
 data class BottomNavigationItem(
     val title: String,
-    val selectedIcon: ImageVector,
-    val unSelectedIcon: ImageVector,
+    @DrawableRes val selectedIcon: Int,
+    @DrawableRes val unSelectedIcon: Int,
 )
 
 
@@ -126,29 +113,29 @@ fun MainScreen(modifier: Modifier = Modifier) {
     val items = listOf(
         BottomNavigationItem(
             title = "Home",
-            selectedIcon = Icons.Filled.Home,
-            unSelectedIcon = Icons.Outlined.Home
+            selectedIcon = R.drawable.home,
+            unSelectedIcon = R.drawable.home
         ),
         BottomNavigationItem(
             title = "Surah",
-            selectedIcon = Icons.Filled.ImportContacts,
-            unSelectedIcon = Icons.Filled.ImportContacts,
+            selectedIcon = R.drawable.quran,
+            unSelectedIcon = R.drawable.quran
         ),
 
         BottomNavigationItem(
             title = "Hadits",
-            selectedIcon = Icons.Filled.MenuBook,
-            unSelectedIcon = Icons.Default.MenuBook,
+            selectedIcon = R.drawable.hadits,
+            unSelectedIcon = R.drawable.hadits,
         ),
         BottomNavigationItem(
             title = "Doa",
-            selectedIcon = Icons.Filled.FavoriteBorder,
-            unSelectedIcon = Icons.Default.FavoriteBorder,
+            selectedIcon = R.drawable.doa,
+            unSelectedIcon = R.drawable.doa
         ),
         BottomNavigationItem(
             title = "Sholat",
-            selectedIcon = Icons.Filled.CollectionsBookmark,
-            unSelectedIcon = Icons.Default.CollectionsBookmark,
+            selectedIcon = R.drawable.sholat,
+            unSelectedIcon = R.drawable.sholat,
         ),
     )
     Scaffold(
@@ -165,14 +152,17 @@ fun MainScreen(modifier: Modifier = Modifier) {
                         label = { Text(text = item.title) },
                         icon = {
                             Icon(
-                                imageVector = if (selectedItemIndex == index) {
-                                    item.selectedIcon
-                                } else item.unSelectedIcon,
+                                modifier = Modifier.size(28.dp),
+                                painter = if (selectedItemIndex == index) {
+                                    painterResource(item.selectedIcon)
+                                } else painterResource(item.unSelectedIcon),
                                 contentDescription = item.title,
                                 tint = if (selectedItemIndex == index)
-                                      MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                                    MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(
+                                    alpha = 0.8f
+                                ),
 
-                            )
+                                )
                         }
                     )
                 }
@@ -183,10 +173,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = true, )
 @Composable
 fun MainScreenPreview() {
-    IndoQuranTheme {
+    IndoQuranTheme (darkTheme = true){
         MainScreen()
     }
 }
