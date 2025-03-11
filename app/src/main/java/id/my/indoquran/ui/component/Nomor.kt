@@ -1,4 +1,4 @@
-package id.my.indoquran.component
+package id.my.indoquran.ui.component
 
 import androidx.compose.ui.graphics.Path
 

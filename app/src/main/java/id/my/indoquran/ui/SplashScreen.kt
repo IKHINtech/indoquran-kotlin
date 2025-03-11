@@ -1,4 +1,4 @@
-package id.my.indoquran
+package id.my.indoquran.ui
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -33,11 +33,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import id.my.indoquran.IndoQuranScreen
+import id.my.indoquran.R
 import kotlinx.coroutines.delay
 
 
 @Composable
-fun CustomSplashScreen(navController: NavController) {
+fun CustomSplashScreen(
+    navigateToHome: () -> Unit
+) {
     var targetSizeOuter by remember { mutableStateOf(180.dp) } // Ukuran awal kecil
     var targetSizeMiddle by remember { mutableStateOf(160.dp) }
 
@@ -46,10 +50,8 @@ fun CustomSplashScreen(navController: NavController) {
         targetSizeOuter = 210.dp
         targetSizeMiddle = 190.dp
 
-        delay(2000) // Tunggu 2 detik sebelum pindah
-        navController.navigate("main_screen") {
-            popUpTo("splash_screen") { inclusive = true } // Hapus SplashScreen dari backstack
-        }
+        delay(1000) // Tunggu 2 detik sebelum pindah
+        navigateToHome()
     }
 
     val animatedSizeOuter by animateDpAsState(
@@ -60,7 +62,11 @@ fun CustomSplashScreen(navController: NavController) {
 
     val animatedSizeMiddle by animateDpAsState(
         targetValue = targetSizeMiddle, // Ukuran akhir
-        animationSpec = tween(durationMillis = 1000, delayMillis = 200, easing = FastOutSlowInEasing), // Delay 200ms
+        animationSpec = tween(
+            durationMillis = 1000,
+            delayMillis = 200,
+            easing = FastOutSlowInEasing
+        ), // Delay 200ms
         label = "Middle Box Animation"
     )
 
@@ -138,6 +144,9 @@ fun CustomSplashScreen(navController: NavController) {
 fun CustomSplashScreenPreview() {
     IndoQuranTheme {
         val navController = rememberNavController()
-        CustomSplashScreen(navController)
+        CustomSplashScreen(navigateToHome = {
+            navController.navigate(IndoQuranScreen.Home.name)
+
+        })
     }
 }
