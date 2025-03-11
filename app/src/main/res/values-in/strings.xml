@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">IndoQur`an</string>
-    <string name="home_screen">Home</string>
+    <string name="home_screen">Beranda</string>
     <string name="quran_screen">Surah</string>
     <string name="hadits_screen">Hadits</string>
     <string name="doa_screen">Doa</string>

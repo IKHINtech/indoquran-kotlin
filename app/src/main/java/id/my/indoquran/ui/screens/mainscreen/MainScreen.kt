@@ -1,4 +1,4 @@
-package id.my.indoquran
+package id.my.indoquran.ui.screens.mainscreen
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -33,12 +33,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import id.my.indoquran.R
 import id.my.indoquran.ui.CustomSplashScreen
-import id.my.indoquran.ui.DoaScreen
-import id.my.indoquran.ui.HaditsScreen
-import id.my.indoquran.ui.HomeScreen
-import id.my.indoquran.ui.JadwalSholatScreen
-import id.my.indoquran.ui.SurahScreen
+import id.my.indoquran.ui.screens.doa.DoaScreen
+import id.my.indoquran.ui.screens.hadits.HaditsScreen
+import id.my.indoquran.ui.screens.home.HomeScreen
+import id.my.indoquran.ui.screens.jadwal_sholat.JadwalSholatScreen
+import id.my.indoquran.ui.screens.surah.SurahScreen
 import id.my.indoquran.ui.theme.IndoQuranTheme
 
 
@@ -140,7 +141,8 @@ fun MainScreen(
             unSelectedIcon = R.drawable.home_outline,
             onClick = {
                 navController.navigate(IndoQuranScreen.Home.name) {
-                    popUpTo(navController.graph.startDestinationRoute!!) { inclusive = true }
+                    popUpTo( IndoQuranScreen.Home.name) { inclusive = true }
+                    launchSingleTop = true
                 }
             }),
         BottomNavigationItem(title = stringResource(R.string.quran_screen),
@@ -148,7 +150,8 @@ fun MainScreen(
             unSelectedIcon = R.drawable.al_quran_outline,
             onClick = {
                 navController.navigate(IndoQuranScreen.Quran.name) {
-                    popUpTo(navController.graph.startDestinationRoute!!) { inclusive = true }
+                    popUpTo(IndoQuranScreen.Home.name) { inclusive = true }
+                    launchSingleTop = true
                 }
             }),
         BottomNavigationItem(title = stringResource(R.string.hadits_screen),
@@ -156,7 +159,8 @@ fun MainScreen(
             unSelectedIcon = R.drawable.book_outline,
             onClick = {
                 navController.navigate(IndoQuranScreen.Hadist.name) {
-                    popUpTo(navController.graph.startDestinationRoute!!) { inclusive = true }
+                    popUpTo(IndoQuranScreen.Home.name) { inclusive = true }
+                    launchSingleTop = true
                 }
             }),
         BottomNavigationItem(title = stringResource(R.string.doa_screen),
@@ -164,7 +168,8 @@ fun MainScreen(
             unSelectedIcon = R.drawable.pray_outline,
             onClick = {
                 navController.navigate(IndoQuranScreen.Doa.name) {
-                    popUpTo(navController.graph.startDestinationRoute!!) { inclusive = true }
+                    popUpTo( IndoQuranScreen.Home.name ) { inclusive = true }
+                    launchSingleTop = true
                 }
             }),
         BottomNavigationItem(title = stringResource(R.string.jadwal_sholat_screen),
@@ -172,7 +177,8 @@ fun MainScreen(
             unSelectedIcon = R.drawable.sholat_outline,
             onClick = {
                 navController.navigate(IndoQuranScreen.JadwalSholat.name) {
-                    popUpTo(navController.graph.startDestinationRoute!!) { inclusive = true }
+                    popUpTo(IndoQuranScreen.Home.name) { inclusive = true }
+                    launchSingleTop = true
                 }
             }),
     )
@@ -185,7 +191,7 @@ fun MainScreen(
     Scaffold(topBar = {
         if (currentScreen != IndoQuranScreen.SplashScreen) {
             IndoQuranMainAppBar(modifier = modifier,
-                canNavigateBack = navController.previousBackStackEntry != null,
+                canNavigateBack = false,
                 navigateUp = { navController.navigateUp() })
         }
     }, bottomBar = {
@@ -195,6 +201,7 @@ fun MainScreen(
                     NavigationBarItem(selected = selectedItemIndex == index,
                         onClick = {
                             selectedItemIndex = index
+                            item.onClick()
                         },
                         alwaysShowLabel = false,
                         label = { Text(text = item.title) },

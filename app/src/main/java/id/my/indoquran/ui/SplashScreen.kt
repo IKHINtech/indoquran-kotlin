@@ -31,9 +31,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import id.my.indoquran.IndoQuranScreen
+import id.my.indoquran.ui.screens.mainscreen.IndoQuranScreen
 import id.my.indoquran.R
 import kotlinx.coroutines.delay
 
