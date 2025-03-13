@@ -2,6 +2,7 @@ package id.my.indoquran.ui.screens.mainscreen
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -29,17 +30,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import id.my.indoquran.R
-import id.my.indoquran.ui.CustomSplashScreen
-import id.my.indoquran.ui.screens.doa.DoaScreen
-import id.my.indoquran.ui.screens.hadits.HaditsScreen
-import id.my.indoquran.ui.screens.home.HomeScreen
-import id.my.indoquran.ui.screens.jadwal_sholat.JadwalSholatScreen
-import id.my.indoquran.ui.screens.surah.SurahScreen
+import id.my.indoquran.navigation.NavigationApp
 import id.my.indoquran.ui.theme.IndoQuranTheme
 
 
@@ -141,7 +135,7 @@ fun MainScreen(
             unSelectedIcon = R.drawable.home_outline,
             onClick = {
                 navController.navigate(IndoQuranScreen.Home.name) {
-                    popUpTo( IndoQuranScreen.Home.name) { inclusive = true }
+                    popUpTo(IndoQuranScreen.Home.name) { inclusive = true }
                     launchSingleTop = true
                 }
             }),
@@ -168,7 +162,7 @@ fun MainScreen(
             unSelectedIcon = R.drawable.pray_outline,
             onClick = {
                 navController.navigate(IndoQuranScreen.Doa.name) {
-                    popUpTo( IndoQuranScreen.Home.name ) { inclusive = true }
+                    popUpTo(IndoQuranScreen.Home.name) { inclusive = true }
                     launchSingleTop = true
                 }
             }),
@@ -222,41 +216,8 @@ fun MainScreen(
             }
         }
     }) { interPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = IndoQuranScreen.SplashScreen.name,
-            modifier = Modifier.padding(interPadding)
-        ) {
-            composable(route = IndoQuranScreen.SplashScreen.name) {
-                CustomSplashScreen(navigateToHome = {
-                    navController.navigate(IndoQuranScreen.Home.name) {
-                        popUpTo(navController.graph.startDestinationRoute!!) { inclusive = true }
-                    }
-
-                })
-            }
-            composable(route = IndoQuranScreen.Home.name) {
-                HomeScreen()
-            }
-
-            composable(route = IndoQuranScreen.Quran.name) {
-                SurahScreen()
-            }
-
-
-            composable(route = IndoQuranScreen.Hadist.name) {
-                HaditsScreen()
-            }
-
-
-            composable(route = IndoQuranScreen.Doa.name) {
-                DoaScreen()
-            }
-
-
-            composable(route = IndoQuranScreen.JadwalSholat.name) {
-                JadwalSholatScreen()
-            }
+        Box(modifier = Modifier.padding(interPadding)) {
+            NavigationApp()
         }
     }
 }
